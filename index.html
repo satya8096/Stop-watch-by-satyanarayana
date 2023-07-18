@@ -1,0 +1,208 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+    <link rel="shortcut icon" href="stop-watch.png" type="image/x-icon">
+
+    <!-- Css Code Start-->
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        h2{
+            margin: 30px 15px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 35px;
+        }
+        .container{
+            background-color: rgb(51, 155, 96);
+            width: 480px;
+            height: 280px;
+            border-radius: 10px;
+        }
+        #timeshow{
+            font-size: 35px;
+            position: relative;
+            left: 10%;
+            top: 50px;
+            padding: 25px 0px;
+            color: white;
+            width: 390px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 1px;
+            text-shadow: 1px 1px 10px white;
+            background-color: rgb(85, 57, 57);
+        }
+        .btns{
+            position: relative;
+            top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+        button{
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: rgb(221, 221, 217);
+            border: none;
+            color:darkslategray;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+        button:hover{
+            box-shadow: 0px 0px 10px 1px;
+        }
+
+
+        @media (max-width:450px) {
+            h2{
+                font-size: 18px;
+            }
+            .container{
+                width: 90%;
+                height: 36%;
+            }
+            #timeshow{
+                width: 80%;
+                font-size: 24px;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+
+    <!-- Css Code End -->
+</head>
+<body>
+
+    <!-- Content -->
+    <h2>Stop Watch By using HTML CSS JavaScript</h2>
+    <div class="container">
+        <div id="timeshow">
+            00 : 00 : 00 : 000
+        </div>
+        <div class="btns">
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Code -->
+
+    <script>
+
+        let milli = 0 , sec = 0 , min = 0 ,hour = 0;
+        let timeshow = document.getElementById("timeshow")
+        let timeref;
+
+        
+        // Start Button Function
+
+        document.getElementById('start').onclick = function(){
+            timeref = setInterval(updatetime,10);
+        }
+
+        // Updatetime Fuction
+
+        function updatetime(){
+            milli = milli+10
+            if(milli==1000){
+                sec = sec+1
+                milli = 0
+                if(sec==60){
+                    min = min+1
+                    sec = 0
+                    if(min==60){
+                        hour = hour+1
+                        min = 0
+                    }
+                }
+            }
+
+            let hour1,min1,sec1,milli1;
+
+            if(hour<10){
+                hour1 = '0'+hour
+            }
+            else{
+                hour1 = hour
+            }
+            if(min<10){
+                min1 = '0'+min
+            }
+            else{
+                min1 = min
+            }
+            if(sec<10){
+                sec1 = '0'+sec
+            }
+            else{
+                sec1 = sec
+            }
+            if(milli<10){
+                milli1 = '00'+milli
+            }
+            else if(milli<100){
+                milli1 = '0'+milli
+            }
+            else{
+                milli1 = milli
+            }
+
+
+            timeshow.innerHTML = `${hour1} : ${min1} : ${sec1} : ${milli1}`
+        }
+
+
+        // Stop Button Function
+
+        document.getElementById('stop').onclick = function(){
+            clearInterval(timeref)
+
+        }
+
+        // Reset Button Function 
+
+        document.getElementById('reset').onclick = function(){
+            clearInterval(timeref)
+            hour = 0
+            min = 0
+            sec = 0
+            milli = 0
+            timeshow.innerHTML = '00 : 00 : 00 : 000'
+        }
+
+    </script>
+</body>
+</html>
